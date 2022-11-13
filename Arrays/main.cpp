@@ -2,9 +2,13 @@
 using namespace std;
 
 void FillRand(int arr[], const int n);
+const int ROWS = 3;
+const int COLS = 4;
+void FillRand(int arr[ROWS][COLS], const int ROWS, const int COLS);
 void FillRand(double arr[], const int n);
 void Print(int arr[], const int n);
 void Print(double arr[], const int n);
+void Print(int arr[ROWS][COLS], const int ROWS, const int COLS);
 void Sort(int arr[], const int n);
 void Sort(double arr[], const int n);
 int Sum(int arr[], const int n);
@@ -21,6 +25,7 @@ void main()
 	setlocale(LC_ALL, "");
 	const int n = 5;
 	int arr[n];
+	cout << "\t" << "1 Масcив" << endl;
 	FillRand(arr, n);
 	Print(arr, n);
 	Sort(arr, n);
@@ -32,6 +37,7 @@ void main()
 
 	const int SIZE = 8;
 	double brr[SIZE];
+	cout << "\t" << "2 Масcив" << endl;
 	FillRand(brr, SIZE);
 	Print(brr, SIZE);
 	Sort(brr, SIZE);
@@ -41,6 +47,11 @@ void main()
 	cout << "Минимальное значение в масиве " << minValueIn(brr, SIZE) << endl;
 	cout << "Максимальное значение в масиве " << maxValueIn(brr, SIZE) << endl;
 
+	
+	int i_arr_2[ROWS][COLS];
+	cout << "\t" << "3 Масcив" << endl;
+	FillRand(i_arr_2, ROWS,COLS);
+	Print(i_arr_2, ROWS, COLS);
 }
 int minValueIn(int arr[], const int n) {
 	int min = arr[0];
@@ -104,6 +115,17 @@ void FillRand(int arr[], const int n)
 		arr[i] = rand() % 100;
 	}
 }
+void FillRand(int arr[ROWS][COLS], const int ROWS, const int COLS)
+{
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+		arr[i][j] = rand() % 100;
+
+		}
+	}
+}
 void FillRand(double arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
@@ -120,7 +142,21 @@ void Print(int arr[], const int n)
 		cout << arr[i] << "\t";
 	}
 	cout << endl;
-}void Print(double arr[], const int n)
+}
+void Print(int arr[ROWS][COLS], const int ROWS, const int COLS)
+{
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+		cout << arr[i][j] << "\t";
+		}
+		cout << endl;
+
+	}
+	cout << endl;
+}
+void Print(double arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
