@@ -11,6 +11,7 @@ void Print(double arr[], const int n);
 void Print(int arr[ROWS][COLS], const int ROWS, const int COLS);
 void Sort(int arr[], const int n);
 void Sort(double arr[], const int n);
+void Sort(int arr[ROWS][COLS], const int ROWS, const int COLS);
 int Sum(int arr[], const int n);
 double Sum(double arr[], const int n);
 int Sum(int arr[ROWS][COLS], const int ROWS, const int COLS);
@@ -67,6 +68,8 @@ void main()
 	cout << "Максимальное значение в масиве " << maxValueIn(i_arr_2, ROWS, COLS) << endl;
 	shiftLeft(i_arr_2, ROWS, COLS,lengthShift);
 	cout << "Сдвиг масива в лево" <<endl;
+	Print(i_arr_2, ROWS, COLS);
+	Sort(i_arr_2, ROWS,  COLS);
 	Print(i_arr_2, ROWS, COLS);
 }
 int minValueIn(int arr[], const int n) {
@@ -247,6 +250,23 @@ void Sort(double arr[], const int n)
 			}
 	}
 }
+void Sort(int arr[ROWS][COLS], const int ROWS, const int COLS) {
+	for (int i = 0; i < ROWS ; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+			for (int k = j+1; k < COLS; k++)
+			{
+				if (arr[i][k] < arr[i][j]) {
+					int buffer = arr[i][j];
+					arr[i][j] = arr[i][k];
+					arr[i][k] = buffer;
+				}
+			}
+		}
+	}
+}
+
 void shiftLeft(int arr[], const int n, const int lengthShift) {
 	int save = 0;
 	for (int i = 0; i < lengthShift; i++)
