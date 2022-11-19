@@ -2,7 +2,7 @@
 using namespace std;
 
 const int ROWS = 3;
-const int COLS = 4;
+const int COLS = 5;
 
 void FillRand(int arr[], const int n);
 void FillRand(double arr[], const int n);
@@ -99,7 +99,7 @@ void main()
 	setlocale(LC_ALL, "");
 	const int n = 5;
 	int lengthShift = 0;
-	cin >> lengthShift;
+	cout << "На сколько чисел сделать сдвиг в массивах (от 0 до 5): "; cin >> lengthShift;
 	cout << "_____________________________________________________________________________" << endl
 		<< "\t\t" << "Одномерный масcив int" << endl
 		<< "_____________________________________________________________________________" << endl;
@@ -157,13 +157,14 @@ void Output(T arr[], const int n, int lengthShift) {
 	cout << "\tМинимальное число в массиве: " << minValueIn(arr, n) << endl;
 	cout << "\tМаксимальное число в массиве: " << maxValueIn(arr, n) << endl;
 }
+
 template <typename T>
 void Output(T arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	FillRand(arr, ROWS, COLS);
-	cout << "\tДвумерный массив:"<<endl;
+	cout << "\tДвумерный массив: "<<endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
 	Sort(arr, ROWS, COLS);
-	cout << "\tСортировка двумерного масива:" << endl;
+	cout << "\tСортировка двумерного масива: " << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
 	shiftLeft(arr, ROWS, COLS, lengthShift);
 	cout << "\tСдвиг двумерного масива в лево:" << endl;
@@ -171,11 +172,12 @@ void Output(T arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) 
 	shiftRight(arr, ROWS, COLS, lengthShift);
 	cout << "\tСдвиг двумерного масива в право: " << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
-	cout << "\tСумма всех чисел двумерного массива:       " << Sum(arr, ROWS, COLS) << endl;
+	cout << "\tСумма всех чисел двумерного массива: " << Sum(arr, ROWS, COLS) << endl;
 	cout << "\tСреднее арифметическое значение чисел в двумерном массиве: " << AVG(arr, ROWS, COLS) << endl;
 	cout << "\tМинимальное значение в масиве " << minValueIn(arr, ROWS, COLS) << endl;
 	cout << "\tМаксимальное значение в масиве " << maxValueIn(arr, ROWS, COLS) << endl;
 }
+
 int minValueIn(int arr[], const int n) {
 	int min = arr[0];
 	for (int i = 0; i < n; i++)
@@ -355,7 +357,7 @@ double AVG(double arr[], const int n) {
 	return Sum(arr, n) / n;
 }
 float AVG(float arr[], const int n) {
-	return Sum(arr, n) / n;
+	return (float)Sum(arr, n) / n;
 }
 char AVG(char arr[], const int n) {
 	return Sum(arr, n) / n;
@@ -368,7 +370,7 @@ double AVG(double arr[ROWS][COLS], const int ROWS, const int COLS) {
 	return Sum(arr, ROWS, COLS) / (ROWS + COLS);
 }
 float AVG(float arr[ROWS][COLS], const int ROWS, const int COLS) {
-	return Sum(arr, ROWS, COLS) / (ROWS + COLS);
+	return (float)Sum(arr, ROWS, COLS) / (ROWS + COLS);
 }
 char AVG(char arr[ROWS][COLS], const int ROWS, const int COLS) {
 	return Sum(arr, ROWS, COLS) / (ROWS + COLS);
@@ -719,16 +721,16 @@ void shiftLeft(char arr[], const int n, int lengthShift) {
 void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		int save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
-				save = arr[j][COLS - 1];
-				for (int k = (COLS - 1); k >= 0; k--)
+				save = arr[j][0];
+				for (int k = 0; k<COLS; k++)
 				{
-					arr[j][k] = arr[j][k - 1];
+					arr[j][k] = arr[j][k + 1];
 				}
-				arr[j][0] = save;
+				arr[j][(COLS - 1)] = save;
 			}
 		}
 
@@ -737,16 +739,16 @@ void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int lengthSh
 void shiftLeft(double arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		double save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
-				save = arr[j][COLS - 1];
-				for (int k = (COLS - 1); k >= 0; k--)
+				save = arr[j][0];
+				for (int k = 0; k < COLS; k++)
 				{
-					arr[j][k] = arr[j][k - 1];
+					arr[j][k] = arr[j][k + 1];
 				}
-				arr[j][0] = save;
+				arr[j][(COLS - 1)] = save;
 			}
 		}
 
@@ -755,16 +757,16 @@ void shiftLeft(double arr[ROWS][COLS], const int ROWS, const int COLS, int lengt
 void shiftLeft(float arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		float save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
-				save = arr[j][COLS - 1];
-				for (int k = (COLS - 1); k >= 0; k--)
+				save = arr[j][0];
+				for (int k = 0; k < COLS; k++)
 				{
-					arr[j][k] = arr[j][k - 1];
+					arr[j][k] = arr[j][k + 1];
 				}
-				arr[j][0] = save;
+				arr[j][(COLS - 1)] = save;
 			}
 		}
 
@@ -773,16 +775,16 @@ void shiftLeft(float arr[ROWS][COLS], const int ROWS, const int COLS, int length
 void shiftLeft(char arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		char save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
-				save = arr[j][COLS - 1];
-				for (int k = (COLS - 1); k >= 0; k--)
+				save = arr[j][0];
+				for (int k = 0; k < COLS; k++)
 				{
-					arr[j][k] = arr[j][k - 1];
+					arr[j][k] = arr[j][k + 1];
 				}
-				arr[j][0] = save;
+				arr[j][(COLS - 1)] = save;
 			}
 		}
 
@@ -836,10 +838,11 @@ void shiftRight(char arr[], const int n, int lengthShift) {
 		arr[0] = save;
 	}
 }
+
 void shiftRight(int arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		int save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
@@ -857,7 +860,7 @@ void shiftRight(int arr[ROWS][COLS], const int ROWS, const int COLS, int lengthS
 void shiftRight(double arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		double save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
@@ -875,7 +878,7 @@ void shiftRight(double arr[ROWS][COLS], const int ROWS, const int COLS, int leng
 void shiftRight(float arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		float save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
@@ -893,7 +896,7 @@ void shiftRight(float arr[ROWS][COLS], const int ROWS, const int COLS, int lengt
 void shiftRight(char arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		char save = 0;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i <lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
