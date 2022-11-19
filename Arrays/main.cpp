@@ -156,9 +156,11 @@ void Output(T arr[], const int n, int lengthShift) {
 	Sort(arr, n);
 	cout << "\tСортировка масива:        "; Print(arr, n);
 	shiftLeft(arr, n, lengthShift);
-	cout << "\tСдвиг массива в лево:     "; Print(arr, n);
+	cout << "\tСдвиг массива в лево: " << lengthShift << " чисел(о/а)" << endl;
+	cout << "\t			  "; Print(arr, n);
 	shiftRight(arr, n, lengthShift);
-	cout << "\tСдвиг массива в право:    "; Print(arr, n);
+	cout << "\tСдвиг массива в право: " << lengthShift << " чисел(о/а)" << endl;
+	cout << "\t			  "; Print(arr, n);
 	cout << "\tСумма всех чисел в масcиве: " << Sum(arr, n) << endl;
 	cout << "\tСреднее арифметическое значение чисел в массиве: " << AVG(arr, n) << endl;
 	cout << "\tМинимальное число в массиве: " << minValueIn(arr, n) << endl;
@@ -180,10 +182,10 @@ void Output(T arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) 
 	cout << "\tСортировка всего двумерного масива: " << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
 	shiftLeft(arr, ROWS, COLS, lengthShift);
-	cout << "\tСдвиг двумерного масива в лево:" << endl;
+	cout << "\tСдвиг двумерного масива в лево на: " << lengthShift << " чисел(о/а)" << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
 	shiftRight(arr, ROWS, COLS, lengthShift);
-	cout << "\tСдвиг двумерного масива в право: " << endl;
+	cout << "\tСдвиг двумерного масива в право на: "<<lengthShift<<" чисел(о/а)" << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
 	cout << "\tСумма всех чисел двумерного массива: " << Sum(arr, ROWS, COLS) << endl;
 	cout << "\tСреднее арифметическое значение чисел в двумерном массиве: " << AVG(arr, ROWS, COLS) << endl;
