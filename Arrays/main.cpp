@@ -3,7 +3,7 @@ using namespace std;
 
 const int ROWS = 3;
 const int COLS = 5;
-
+const int N = (ROWS * COLS);
 void FillRand(int arr[], const int n);
 void FillRand(double arr[], const int n);
 void FillRand(float arr[], const int n);
@@ -25,10 +25,17 @@ void Sort(double arr[], const int n);
 void Sort(float arr[], const int n);
 void Sort(char arr[], const int n);
 
-void Sort(int arr[ROWS][COLS], const int ROWS, const int COLS);
-void Sort(double arr[ROWS][COLS], const int ROWS, const int COLS);
-void Sort(float arr[ROWS][COLS], const int ROWS, const int COLS);
-void Sort(char arr[ROWS][COLS], const int ROWS, const int COLS);
+void Sort_Rows(int arr[ROWS][COLS], const int ROWS, const int COLS);
+void Sort_Rows(double arr[ROWS][COLS], const int ROWS, const int COLS);
+void Sort_Rows(float arr[ROWS][COLS], const int ROWS, const int COLS);
+void Sort_Rows(char arr[ROWS][COLS], const int ROWS, const int COLS);
+
+template <typename T>
+void Sort_Cols(T arr[ROWS][COLS], const int ROWS, const int COLS);
+
+template <typename T>
+void Sort_all_arr(T arr[ROWS][COLS], const int ROWS, const int COLS);
+
 
 int Sum(int arr[], const int n);
 double Sum(double arr[], const int n);
@@ -161,10 +168,16 @@ void Output(T arr[], const int n, int lengthShift) {
 template <typename T>
 void Output(T arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	FillRand(arr, ROWS, COLS);
-	cout << "\tДвумерный массив: "<<endl;
+	cout << "\tДвумерный массив: " << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
-	Sort(arr, ROWS, COLS);
-	cout << "\tСортировка двумерного масива: " << endl;
+	Sort_Rows(arr, ROWS, COLS);
+	cout << "\tСортировка строк двумерного масива: " << endl;
+	cout << "\t"; Print(arr, ROWS, COLS);
+	Sort_Cols(arr, ROWS, COLS);
+	cout << "\tСортировка столбцов двумерного масива: " << endl;
+	cout << "\t"; Print(arr, ROWS, COLS);
+	Sort_all_arr(arr, ROWS, COLS);
+	cout << "\tСортировка всего двумерного масива: " << endl;
 	cout << "\t"; Print(arr, ROWS, COLS);
 	shiftLeft(arr, ROWS, COLS, lengthShift);
 	cout << "\tСдвиг двумерного масива в лево:" << endl;
@@ -608,7 +621,7 @@ void Sort(char arr[], const int n) {
 	}
 }
 
-void Sort(int arr[ROWS][COLS], const int ROWS, const int COLS) {
+void Sort_Rows(int arr[ROWS][COLS], const int ROWS, const int COLS) {
 	for (int i = 0; i < ROWS; i++)
 	{
 		for (int j = 0; j < COLS; j++)
@@ -624,7 +637,7 @@ void Sort(int arr[ROWS][COLS], const int ROWS, const int COLS) {
 		}
 	}
 }
-void Sort(double arr[ROWS][COLS], const int ROWS, const int COLS) {
+void Sort_Rows(double arr[ROWS][COLS], const int ROWS, const int COLS) {
 	for (int i = 0; i < ROWS; i++)
 	{
 		for (int j = 0; j < COLS; j++)
@@ -640,7 +653,7 @@ void Sort(double arr[ROWS][COLS], const int ROWS, const int COLS) {
 		}
 	}
 }
-void Sort(float arr[ROWS][COLS], const int ROWS, const int COLS) {
+void Sort_Rows(float arr[ROWS][COLS], const int ROWS, const int COLS) {
 	for (int i = 0; i < ROWS; i++)
 	{
 		for (int j = 0; j < COLS; j++)
@@ -656,7 +669,7 @@ void Sort(float arr[ROWS][COLS], const int ROWS, const int COLS) {
 		}
 	}
 }
-void Sort(char arr[ROWS][COLS], const int ROWS, const int COLS) {
+void Sort_Rows(char arr[ROWS][COLS], const int ROWS, const int COLS) {
 	for (int i = 0; i < ROWS; i++)
 	{
 		for (int j = 0; j < COLS; j++)
@@ -669,6 +682,46 @@ void Sort(char arr[ROWS][COLS], const int ROWS, const int COLS) {
 					arr[i][k] = buffer;
 				}
 			}
+		}
+	}
+}
+
+template <typename T>
+void Sort_Cols(T arr[ROWS][COLS], const int ROWS, const int COLS) {
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+			for (int k = i + 1; k < ROWS; k++)
+			{
+				if (arr[k][j] < arr[i][j]) {
+					T buffer = arr[i][j];
+					arr[i][j] = arr[k][j];
+					arr[k][j] = buffer;
+				}
+			}
+		}
+	}
+}
+
+template <typename T>
+void Sort_all_arr(T arr[ROWS][COLS], const int ROWS, const int COLS) {
+	int k = 0;
+	T arr_save[N];
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++, k++)
+		{
+			arr_save[k] = arr[i][j];
+		}
+	}
+	Sort(arr_save, N);
+	k = 0;
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++, k++)
+		{
+			arr[i][j] = arr_save[k];
 		}
 	}
 }
@@ -726,7 +779,7 @@ void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int lengthSh
 			for (int j = 0; j < ROWS; j++)
 			{
 				save = arr[j][0];
-				for (int k = 0; k<COLS; k++)
+				for (int k = 0; k < COLS; k++)
 				{
 					arr[j][k] = arr[j][k + 1];
 				}
@@ -753,7 +806,7 @@ void shiftLeft(double arr[ROWS][COLS], const int ROWS, const int COLS, int lengt
 		}
 
 	}
-} 
+}
 void shiftLeft(float arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		float save = 0;
@@ -896,7 +949,7 @@ void shiftRight(float arr[ROWS][COLS], const int ROWS, const int COLS, int lengt
 void shiftRight(char arr[ROWS][COLS], const int ROWS, const int COLS, int lengthShift) {
 	{
 		char save = 0;
-		for (int i = 0; i <lengthShift; i++)
+		for (int i = 0; i < lengthShift; i++)
 		{
 			for (int j = 0; j < ROWS; j++)
 			{
